@@ -204,7 +204,7 @@ fn main() {
         }
     };
 
-    let mut _runner =
+    let mut runner =
         Runner {
             input_file: &input_file,
             input_file_path: parameters.input_file_path.as_path(),
@@ -212,6 +212,8 @@ fn main() {
             output_file_path: parameters.output_file_path.as_path()
         };
     match (parameters.day_index, parameters.part_index) {
+        (1, 1) => runner.run(&mut days::day_1::part_1::State::new()),
+        (1, 2) => runner.run(&mut days::day_1::part_2::State::new()),
         _ => {
             println!("Solver not implemented for day {} part {}.",
                      parameters.day_index, parameters.part_index);
