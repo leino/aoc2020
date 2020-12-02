@@ -8,6 +8,17 @@ pub mod part_1 {
 
     impl super::Solver for State {
 
+        type Input = u32;
+        type Output = u32;
+
+        fn deserialize(&self, line: &std::string::String) -> Option<u32> {
+            line.parse::<u32>().ok()
+        }
+
+        fn serialize(&self, output: &u32) -> std::string::String {
+            output.to_string()
+        }
+
         fn new() -> Self {
             State {
                 entries: std::vec::Vec::new(),
@@ -40,6 +51,17 @@ pub mod part_2 {
     }
 
     impl super::Solver for State {
+
+        type Input = u32;
+        type Output = u32;
+
+        fn deserialize(&self, line: &std::string::String) -> Option<u32> {
+            line.parse::<u32>().ok()
+        }
+
+        fn serialize(&self, output: &u32) -> std::string::String {
+            output.to_string()
+        }
 
         fn new() -> Self {
             State {

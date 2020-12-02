@@ -32,14 +32,14 @@ impl Runnable for Runner<'_> {
                     std::process::exit(1);
                 },
                 Ok(line) => {
-                    match line.parse::<u32>() {
-                        Err(pe) => {
-                            println!("{}: {}: {}",
+                    match solver.deserialize(&line) {
+                        None => {
+                            println!("{}:{}: Failed to parse line.",
                                      self.input_file_path.display(),
-                                     line_index, pe);
+                                     line_index);
                             std::process::exit(1);
                         },
-                        Ok(input) => {
+                        Some(input) => {
                             solver.accumulate(input)
                         },
                     }
@@ -52,7 +52,7 @@ impl Runnable for Runner<'_> {
                 std::process::exit(1);
             },
             Some(output) => {
-                match self.output_file.write_fmt(format_args!("{}\n", output)) {
+                match self.output_file.write_fmt(format_args!("{}\n", solver.serialize(&output))) {
                     Ok(()) => (),
                     Err(we) => {
                         println!("Write error for file {}: {}",
@@ -214,6 +214,8 @@ fn main() {
     match (parameters.day_index, parameters.part_index) {
         (1, 1) => runner.run(&mut days::day_1::part_1::State::new()),
         (1, 2) => runner.run(&mut days::day_1::part_2::State::new()),
+        (2, 1) => runner.run(&mut days::day_2::part_1::State::new()),
+        (2, 2) => runner.run(&mut days::day_2::part_2::State::new()),
         _ => {
             println!("Solver not implemented for day {} part {}.",
                      parameters.day_index, parameters.part_index);
