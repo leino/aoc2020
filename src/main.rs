@@ -216,6 +216,8 @@ fn main() {
         (1, 2) => runner.run(&mut days::day_1::part_2::State::new()),
         (2, 1) => runner.run(&mut days::day_2::part_1::State::new()),
         (2, 2) => runner.run(&mut days::day_2::part_2::State::new()),
+        (3, 1) => runner.run(&mut days::day_3::part_1::State::new()),
+        (3, 2) => runner.run(&mut days::day_3::part_2::State::new()),
         _ => {
             println!("Solver not implemented for day {} part {}.",
                      parameters.day_index, parameters.part_index);
