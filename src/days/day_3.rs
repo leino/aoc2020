@@ -64,7 +64,7 @@ pub mod part_1 {
             }
         }
 
-        fn accumulate(&mut self, row: Row) {
+        fn accumulate(&mut self, row: Row) -> Option<u32> {
             let col_index = (3*self.row_index) % ROW_LENGTH;
             let col_mask = 1 << (ROW_LENGTH - 1 - col_index);
             let hit_tree = (col_mask & row) != 0;
@@ -72,6 +72,7 @@ pub mod part_1 {
                 self.tree_hit_count += 1;
             }
             self.row_index += 1;
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {
@@ -111,7 +112,7 @@ pub mod part_2 {
             }
         }
 
-        fn accumulate(&mut self, row: Row) {
+        fn accumulate(&mut self, row: Row) -> Option<u32> {
             for (slope_index, slope) in SLOPES.iter().enumerate() {
                 let col_index = (slope.0*(self.row_index/slope.1)) % ROW_LENGTH;
                 let col_mask: u32 = {
@@ -127,6 +128,7 @@ pub mod part_2 {
                 }
             }
             self.row_index += 1;
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {

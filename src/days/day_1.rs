@@ -25,8 +25,9 @@ pub mod part_1 {
             }
         }
 
-        fn accumulate(&mut self, entry: u32) {
+        fn accumulate(&mut self, entry: u32) -> Option<u32> {
             self.entries.push(entry);
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {
@@ -69,8 +70,9 @@ pub mod part_2 {
             }
         }
 
-        fn accumulate(&mut self, entry: u32) {
+        fn accumulate(&mut self, entry: u32) -> Option<u32> {
             self.entries.push(entry);
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {

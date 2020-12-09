@@ -110,8 +110,9 @@ pub mod part_1 {
             }
         }
 
-        fn accumulate(&mut self, instruction: Instruction) {
+        fn accumulate(&mut self, instruction: Instruction) -> Option<i32> {
             self.instructions.push(instruction);
+            None
         }
 
         fn solve(&mut self) -> Option<i32> {
@@ -168,8 +169,9 @@ pub mod part_2 {
             }
         }
 
-        fn accumulate(&mut self, instruction: Instruction) {
+        fn accumulate(&mut self, instruction: Instruction) -> Option<i32> {
             self.instructions.push(instruction);
+            None
         }
 
         fn solve(&mut self) -> Option<i32> {

@@ -10,6 +10,7 @@ pub trait Solver {
     fn deserialize(&self, line: &std::string::String) -> Option<Self::Input>;
     fn serialize(&self, output: &Self::Output) -> std::string::String;
     fn new() -> Self;
-    fn accumulate(&mut self, x: Self::Input);
+    // Returns some output if it's done early.
+    fn accumulate(&mut self, x: Self::Input) -> Option<Self::Output>;
     fn solve(&mut self) -> Option<Self::Output>;
 }

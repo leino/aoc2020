@@ -53,7 +53,7 @@ pub mod part_1 {
             }
         }
 
-        fn accumulate(&mut self, row: Row) {
+        fn accumulate(&mut self, row: Row) -> Option<u32> {
             match row {
                 Row::GroupTerminator => {
                     self.yes_count += self.questions.count_ones();
@@ -63,6 +63,7 @@ pub mod part_1 {
                     self.questions |= questions;
                 },
             }
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {
@@ -118,7 +119,7 @@ pub mod part_2 {
             }
         }
 
-        fn accumulate(&mut self, row: Row) {
+        fn accumulate(&mut self, row: Row) -> Option<u32> {
             match row {
                 Row::GroupTerminator => {
                     self.yes_count += self.yes_questions.count_ones();
@@ -128,6 +129,7 @@ pub mod part_2 {
                     self.yes_questions &= questions;
                 },
             }
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {

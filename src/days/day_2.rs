@@ -60,7 +60,7 @@ pub mod part_1 {
             }
         }
 
-        fn accumulate(&mut self, entry: Entry) {
+        fn accumulate(&mut self, entry: Entry) -> Option<u32> {
             let min = entry.range.offset;
             let max = entry.range.offset + entry.range.length;
             let mut count = 0;
@@ -68,13 +68,14 @@ pub mod part_1 {
                 if c == entry.character {
                     count += 1;
                     if count > max {
-                        return;
+                        return None;
                     }
                 }
             }
             if count >= min {
                 self.valid_password_count += 1;
             }
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {
@@ -114,12 +115,12 @@ pub mod part_2 {
             }
         }
 
-        fn accumulate(&mut self, entry: Entry) {
+        fn accumulate(&mut self, entry: Entry) -> Option<u32> {
             let index_lo = (entry.range.offset - 1) as usize;
             let index_hi = (entry.range.offset + entry.range.length - 1) as usize;
             let characters: Vec<char> = entry.password.chars().collect();
             if index_hi >= characters.len() {
-                return;
+                return None;
             }
             let char_lo = characters[index_lo];
             let char_hi = characters[index_hi];
@@ -127,6 +128,7 @@ pub mod part_2 {
             if valid {
                 self.valid_password_count += 1;
             }
+            None
         }
 
         fn solve(&mut self) -> Option<u32> {

@@ -24,7 +24,7 @@ pub trait Runnable {
 
 impl Runnable for Runner<'_> {
     fn run<S: Solver>(&mut self, solver: &mut S) {
-
+        let mut output = None;
         for (line_index, line_result) in io::BufReader::new(self.input_file).lines().enumerate() {
             match line_result {
                 Err(re) => {
@@ -40,13 +40,16 @@ impl Runnable for Runner<'_> {
                             std::process::exit(1);
                         },
                         Some(input) => {
-                            solver.accumulate(input)
+                            output = solver.accumulate(input);
+                            if output.is_some() {
+                                break;
+                            }
                         },
                     }
                 },
             };
         }
-        match solver.solve() {
+        match output.or(solver.solve()) {
             None => {
                 println!("Failed to solve: invalid input.");
                 std::process::exit(1);
