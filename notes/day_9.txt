@@ -1,0 +1,26 @@
+Part 2
+------
+Let E = entries[i] be the answer to part 1, and let there be N entries.
+We're searching for ranges [a,b) such that sum([a, b)) = E.
+Note that sum([a,b)) = sum([0,b)) - sum([0,a)).
+For clarity, define prefix_sum(i) = sum([0,i)).
+So we're looking for b > a >= 1 such that
+f(a,b) = prefix_sum(b) - prefix_sum(a) = E.
+
+This is similar to day 1, except that we're looking for a difference of positive numbers, rather than a sum!
+We can pre-calculate an array of all the prefix sums in O(N), as we pass over the input.
+We don't need the initial sorting step that we had for day 1, because the prefix sums are sorted by definition.
+
+We start at (i,j) = (1,2), and iterate the following rule:
+1. if f(i,j) = E, we're done.
+2. if f(i,j) > E, then increment i.
+3. if f(i,j) < E, then increment j.
+
+We're maintaining the invariant that the (a,b) we're looking for at all moments satisfies i <= a and j <= b.
+When 2 holds, then we can discard the whole i'th row by incrementing i, because going further along the row would only
+increment f further above E.
+When 3 holds, then we can discard the whole j'th column by incrementing j, because going further along the column would
+only decrease f further below E.
+
+This search process also takes O(n).
+Therefore, the entire algorithm takes O(n).
