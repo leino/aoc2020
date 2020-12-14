@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 
 pub enum Angle {
     Clockwise90,
@@ -77,7 +77,7 @@ pub mod part_1 {
         }
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Instruction;
         type Output = u32;

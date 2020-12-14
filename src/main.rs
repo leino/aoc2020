@@ -2,7 +2,8 @@ use std::fmt;
 use std::io::{self, BufRead};
 use std::io::Write;
 mod days;
-use days::Solver;
+use days::CumulativeSolver;
+use days::FixedLineCountSolver;
 
 struct Parameters {
     day_index: u32,
@@ -19,11 +20,12 @@ struct Runner<'a> {
 }
 
 pub trait Runnable {
-    fn run<S: Solver>(&mut self, solver: &mut S);
+    fn run_cumulative<S: CumulativeSolver>(&mut self, solver: &mut S);
+    fn run_fixed_line_count<S: FixedLineCountSolver>(&mut self);
 }
 
 impl Runnable for Runner<'_> {
-    fn run<S: Solver>(&mut self, solver: &mut S) {
+    fn run_cumulative<S: CumulativeSolver>(&mut self, solver: &mut S) {
         let mut output = None;
         for (line_index, line_result) in io::BufReader::new(self.input_file).lines().enumerate() {
             match line_result {
@@ -64,6 +66,46 @@ impl Runnable for Runner<'_> {
                     },
                 }
             }
+        }
+    }
+
+    fn run_fixed_line_count<S: FixedLineCountSolver>(&mut self) {
+        let mut lines = Vec::new();
+        for line_result in io::BufReader::new(self.input_file).lines() {
+            match line_result {
+                Err(re) => {
+                    println!("Read error for file {}: {}", self.input_file_path.display(), re);
+                    std::process::exit(1);
+                },
+                Ok(line) => {
+                    lines.push(line);
+                },
+            }
+        }
+        match S::from_input(&lines) {
+            None => {
+                println!("Invalid input.");
+                std::process::exit(1);
+            },
+            Some(mut solver) => {
+                match solver.solve() {
+                    None => {
+                        println!("Failed to solve.");
+                        std::process::exit(1);
+                    },
+                    Some(result) => {
+                        println!("{}", result);
+                        match self.output_file.write_fmt(format_args!("{}\n", result.to_string())) {
+                            Ok(()) => (),
+                            Err(we) => {
+                                println!("Write error for file {}: {}",
+                                         self.output_file_path.display(), we);
+                                std::process::exit(1);
+                            },
+                        }
+                    }
+                }
+            },
         }
     }
 }
@@ -215,17 +257,18 @@ fn main() {
             output_file_path: parameters.output_file_path.as_path()
         };
     match (parameters.day_index, parameters.part_index) {
-        (1, 1) => runner.run(&mut days::day_1::part_1::State::new()),
-        (1, 2) => runner.run(&mut days::day_1::part_2::State::new()),
-        (2, 1) => runner.run(&mut days::day_2::part_1::State::new()),
-        (2, 2) => runner.run(&mut days::day_2::part_2::State::new()),
-        (3, 1) => runner.run(&mut days::day_3::part_1::State::new()),
-        (3, 2) => runner.run(&mut days::day_3::part_2::State::new()),
-        (6, 1) => runner.run(&mut days::day_6::part_1::State::new()),
-        (6, 2) => runner.run(&mut days::day_6::part_2::State::new()),
-        (8, 1) => runner.run(&mut days::day_8::part_1::State::new()),
-        (8, 2) => runner.run(&mut days::day_8::part_2::State::new()),
-        (12, 1) => runner.run(&mut days::day_12::part_1::State::new()),
+        (1, 1) => runner.run_cumulative(&mut days::day_1::part_1::State::new()),
+        (1, 2) => runner.run_cumulative(&mut days::day_1::part_2::State::new()),
+        (2, 1) => runner.run_cumulative(&mut days::day_2::part_1::State::new()),
+        (2, 2) => runner.run_cumulative(&mut days::day_2::part_2::State::new()),
+        (3, 1) => runner.run_cumulative(&mut days::day_3::part_1::State::new()),
+        (3, 2) => runner.run_cumulative(&mut days::day_3::part_2::State::new()),
+        (6, 1) => runner.run_cumulative(&mut days::day_6::part_1::State::new()),
+        (6, 2) => runner.run_cumulative(&mut days::day_6::part_2::State::new()),
+        (8, 1) => runner.run_cumulative(&mut days::day_8::part_1::State::new()),
+        (8, 2) => runner.run_cumulative(&mut days::day_8::part_2::State::new()),
+        (12, 1) => runner.run_cumulative(&mut days::day_12::part_1::State::new()),
+        (13, 1) => runner.run_fixed_line_count::<days::day_13::part_1::Instance>(),
         _ => {
             println!("Solver not implemented for day {} part {}.",
                      parameters.day_index, parameters.part_index);

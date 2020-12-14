@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 use std::collections::HashSet;
 
 #[derive(Copy, Clone, Debug)]
@@ -91,7 +91,7 @@ pub mod part_1 {
         instructions: Vec<Instruction>,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Instruction;
         type Output = i32;
@@ -150,7 +150,7 @@ pub mod part_2 {
         }
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Instruction;
         type Output = i32;

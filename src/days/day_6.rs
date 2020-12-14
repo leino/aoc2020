@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 
 type Questions = u32;
 
@@ -18,7 +18,7 @@ pub mod part_1 {
         yes_count: u32
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Row;
         type Output = u32;
@@ -84,7 +84,7 @@ pub mod part_2 {
         yes_count: u32
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Row;
         type Output = u32;

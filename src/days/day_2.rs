@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 use regex::Regex;
 
 pub struct Range {
@@ -40,7 +40,7 @@ pub mod part_1 {
         input_expression: Regex,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Entry;
         type Output = u32;
@@ -95,7 +95,7 @@ pub mod part_2 {
         input_expression: Regex,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Entry;
         type Output = u32;

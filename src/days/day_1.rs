@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 
 pub mod part_1 {
 
@@ -6,7 +6,7 @@ pub mod part_1 {
         entries: std::vec::Vec<u32>,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = u32;
         type Output = u32;
@@ -51,7 +51,7 @@ pub mod part_2 {
         entries: std::vec::Vec<u32>,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = u32;
         type Output = u32;

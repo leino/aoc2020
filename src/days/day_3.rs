@@ -1,4 +1,4 @@
-use super::Solver;
+use super::CumulativeSolver;
 
 // All rows of the map are 31 bits long
 const ROW_LENGTH: u32 = 31;
@@ -44,7 +44,7 @@ pub mod part_1 {
         row_index: u32,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Row;
         type Output = u32;
@@ -92,7 +92,7 @@ pub mod part_2 {
         row_index: u32,
     }
 
-    impl super::Solver for State {
+    impl super::CumulativeSolver for State {
 
         type Input = Row;
         type Output = u32;
