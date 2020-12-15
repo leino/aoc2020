@@ -5,6 +5,7 @@ pub mod day_6;
 pub mod day_8;
 pub mod day_12;
 pub mod day_13;
+pub mod day_15;
 
 pub trait CumulativeSolver {
     type Input;

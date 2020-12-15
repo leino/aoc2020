@@ -269,6 +269,8 @@ fn main() {
         (8, 2) => runner.run_cumulative(&mut days::day_8::part_2::State::new()),
         (12, 1) => runner.run_cumulative(&mut days::day_12::part_1::State::new()),
         (13, 1) => runner.run_fixed_line_count::<days::day_13::part_1::Instance>(),
+        (15, 1) => runner.run_fixed_line_count::<days::day_15::part_1::Instance>(),
+        (15, 2) => runner.run_fixed_line_count::<days::day_15::part_2::Instance>(),
         _ => {
             println!("Solver not implemented for day {} part {}.",
                      parameters.day_index, parameters.part_index);
